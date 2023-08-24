@@ -1,0 +1,220 @@
+=head2 Wed Jun 15 16:01:35 2022: C<Module> L<HTTP::Proxy|HTTP::Proxy>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.304>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:01:43 2022: C<Module> L<Crypt::PasswdMD5|Crypt::PasswdMD5>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.41>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:01:53 2022: C<Module> L<Class::Accessor|Class::Accessor>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.51>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:01:55 2022: C<Module> L<Authen::Simple|Authen::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.5>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:01:57 2022: C<Module> L<HTTP::Server::Simple::Authen|HTTP::Server::Simple::Authen>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.04>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:02:23 2022: C<Module> L<IO::Capture|IO::Capture>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.05>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:02:34 2022: C<Module> L<Test::Deep|Test::Deep>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.130>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:02:48 2022: C<Module> L<UNIVERSAL::can|UNIVERSAL::can>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.20140328>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:02:50 2022: C<Module> L<Test::MockObject|Test::MockObject>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.20200122>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Jun 15 16:02:55 2022: C<Module> L<Test::NoWarnings|Test::NoWarnings>
+
+=over 4
+
+=item *
+
+C<installed into: C:\Strawberry-perl-for-GLPI-Agent\perl\site\lib>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.06>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+

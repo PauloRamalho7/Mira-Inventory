@@ -1,0 +1,126 @@
+﻿object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Invent'#225'rio de PCs - MIRA'
+  ClientHeight = 542
+  ClientWidth = 715
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Empresa: TLabel
+    Left = 360
+    Top = 77
+    Width = 61
+    Height = 19
+    Caption = 'Empresa'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Responsável: TLabel
+    Left = 360
+    Top = 116
+    Width = 87
+    Height = 19
+    Caption = 'Respons'#225'vel'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lblSetor: TLabel
+    Left = 360
+    Top = 156
+    Width = 90
+    Height = 19
+    Caption = 'Local (Setor)'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 360
+    Top = 196
+    Width = 77
+    Height = 19
+    Caption = 'Patrim'#243'nio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lblData: TLabel
+    Left = 400
+    Top = 16
+    Width = 65
+    Height = 25
+    Caption = 'lblData'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object trVw: TTreeView
+    Left = 0
+    Top = 0
+    Width = 305
+    Height = 542
+    Align = alLeft
+    Indent = 19
+    TabOrder = 0
+  end
+  object Edit1: TEdit
+    Left = 502
+    Top = 74
+    Width = 121
+    Height = 27
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+  object RadioGroup1: TRadioGroup
+    Left = 360
+    Top = 232
+    Width = 185
+    Height = 125
+    Caption = 'Unidade'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Items.Strings = (
+      'BH'
+      'BETIM'
+      'CONTAGEM')
+    ParentFont = False
+    TabOrder = 2
+  end
+  object XMLDocument: TXMLDocument
+    Left = 552
+    Top = 424
+  end
+end

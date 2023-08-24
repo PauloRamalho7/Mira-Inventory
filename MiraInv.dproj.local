@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2023/08/24 13:47:37.794,=C:\Users\paulo.nascimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/08/24 13:48:23.133,D:\Projetos\Mira-Inventory\frmMain.pas=C:\Users\paulo.nascimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/08/24 13:48:23.133,D:\Projetos\Mira-Inventory\frmMain.dfm=C:\Users\paulo.nascimento\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2023/08/24 13:48:32.164,D:\Projetos\Mira-Inventory\MiraInv.dproj=C:\Users\paulo.nascimento\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,32 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Invent'#225'rio de PCs - MIRA'
+  ClientHeight = 542
+  ClientWidth = 715
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object TreeView1: TTreeView
+    Left = 0
+    Top = 0
+    Width = 457
+    Height = 542
+    Align = alLeft
+    Indent = 19
+    TabOrder = 0
+    ExplicitLeft = 16
+    ExplicitTop = 21
+    ExplicitHeight = 460
+  end
+  object XMLDocument: TXMLDocument
+    Left = 552
+    Top = 424
+  end
+end
