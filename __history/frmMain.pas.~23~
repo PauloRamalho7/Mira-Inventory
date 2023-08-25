@@ -17,6 +17,8 @@ uses
 
   ShellApi,
 
+  IniFiles,
+
   Winapi.Messages,
   Winapi.Windows,
 
@@ -29,19 +31,23 @@ type
   TfrmPrincipal = class(TForm)
     trVw: TTreeView;
     XMLDocument: TXMLDocument;
-    Edit1: TEdit;
+    edtEmpresa: TEdit;
     Empresa: TLabel;
     Responsável: TLabel;
     lblSetor: TLabel;
     Label4: TLabel;
-    RadioGroup1: TRadioGroup;
+    rdgUnidade: TRadioGroup;
     lblData: TLabel;
-    Edit2: TEdit;
-    Edit3: TEdit;
-    Edit4: TEdit;
+    edtResponsavel: TEdit;
+    edtLocal: TEdit;
+    edtPatrimonio: TEdit;
+    btnGerar: TButton;
     procedure FormShow(Sender: TObject);
+    procedure btnGerarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
+    I : TiniFile;
     procedure GenereteTree(XMLNode: IXMLNode; TreeNode: TTreeNode);
 
   public
@@ -81,17 +87,52 @@ begin
     Result := False;
   end;
 
-procedure TfrmPrincipal.FormShow(Sender: TObject);
-Var
-  ArqIni : TiniFile;
+procedure TfrmPrincipal.btnGerarClick(Sender: TObject);
+var
+  NodeRequest,
+  NodeArquetipo : IXMLNode;
+  linha : string;
+
 begin
+  I.WriteString('DADOS','EMPRESA',edtEmpresa.text);
+  I.WriteString('DADOS','RESPONSAVEL',edtResponsavel.text);
+  I.WriteString('DADOS','LOCAL',edtLocal.text);
+  I.WriteString('DADOS','UNIDADE',rdgUnidade.Items[rdgUnidade.ItemIndex]);
+  Linha := '';
+  Linha := edtEmpresa.text +';'+edtResponsavel.Text+';'+edtLocal.Text+';'+
+           rdgUnidade.Items[rdgUnidade.ItemIndex]+';'+edtPatrimonio.Text+';';
+  NodeRequest := XmlDocument.ChildNodes['REQUEST'].ChildNodes['CONTENT'];
+
+  Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SMANUFACTURER'].Text + ';';
+  Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SMODEL'].Text + ';';
+  Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SSN'].Text + ';';
+
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  I.Free;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+
+begin
+  I:=TIniFile.Create(ExtractFilePath(Application.ExeName)+'Config.ini');
+  edtEmpresa.Text     := I.ReadString('DADOS','EMPRESA','');
+  edtResponsavel.Text := I.ReadString('DADOS','RESPONSAVEL','');
+  edtLocal.Text       := I.ReadString('DADOS','LOCAL','');
+  rdgUnidade.ItemIndex :=
+  rdgUnidade.Items.IndexOf(I.ReadString('DADOS','UNIDADE',''));
   lblData.Caption := DateToStr(Date);
+
 //  ExecutarEEsperar('glpi-inventory.bat');
+
   XMLDocument.LoadFromFile ('tempxml.xml'); // pegando o conteúdo da variável Caminho.
   trVw.Items.Clear; //limpa o conteúdo que estiver na TreeView
   XMLDocument.Active:= True; // ativa o XMLDocument
   GenereteTree(XMLDocument.DocumentElement, nil); //Monta a TreeView
 
+  edtPatrimonio.SetFocus;
 end;
 
 procedure TfrmPrincipal.GenereteTree(XMLNode: IXMLNode; TreeNode: TTreeNode);

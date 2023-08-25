@@ -90,15 +90,23 @@ begin
 procedure TfrmPrincipal.btnGerarClick(Sender: TObject);
 var
   NodeRequest,
-  NodeArquetipo : IXMLNode;
-  linha : string;
+  NodeDrives : IXMLNode;
+  linha,
+  NomePC,
+  TamHD,
+  ArqTxtName : string;
+  IFor     : Integer;
 
 begin
   I.WriteString('DADOS','EMPRESA',edtEmpresa.text);
   I.WriteString('DADOS','RESPONSAVEL',edtResponsavel.text);
   I.WriteString('DADOS','LOCAL',edtLocal.text);
   I.WriteString('DADOS','UNIDADE',rdgUnidade.Items[rdgUnidade.ItemIndex]);
-  Linha := '';
+
+  Linha      := '';
+  ArqTxtName := '';
+  ArqTxtName := edtEmpresa.text + ' - ' + edtLocal.Text;
+
   Linha := edtEmpresa.text +';'+edtResponsavel.Text+';'+edtLocal.Text+';'+
            rdgUnidade.Items[rdgUnidade.ItemIndex]+';'+edtPatrimonio.Text+';';
   NodeRequest := XmlDocument.ChildNodes['REQUEST'].ChildNodes['CONTENT'];
@@ -106,6 +114,32 @@ begin
   Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SMANUFACTURER'].Text + ';';
   Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SMODEL'].Text + ';';
   Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SSN'].Text + ';';
+
+  Linha := linha + NodeRequest.ChildNodes['CPUS'].ChildNodes['NAME'].Text + ';';
+
+  NodeDrives := NodeRequest.ChildNodes['DRIVES']; TamHD := '';
+  for IFor := 0 to NodeDrives.ChildNodes.Count -1 do begin
+    if (NodeDrives.ChildNodes['DESCRIPTION'].Text = 'Disco Fixo Local')
+        and
+       (NodeDrives.ChildNodes['LETTER'].Text = 'C:') then begin
+         TamHD := NodeDrives.ChildNodes['TOTAL'].Text;
+       end;
+  end;
+  if TamHD <>'' then begin
+    TamHD := FloatToStr(StrToInt(TamHD)/1024);
+  end;
+  Linha := linha + TamHD + ';';
+
+  Linha := linha + NodeRequest.ChildNodes['HARDWARE'].ChildNodes['CHASSIS_TYPE'].Text + ';';
+  Linha := linha + NodeRequest.ChildNodes['HARDWARE'].ChildNodes['NAME'].Text + ';';
+  NomePC :=NodeRequest.ChildNodes['HARDWARE'].ChildNodes['NAME'].Text;
+
+  Linha := linha + NodeRequest.ChildNodes['MEMORIES'].ChildNodes['CAPACITY'].Text + ';';
+
+  Linha := linha + NodeRequest.ChildNodes['OPERATINGSYSTEM'].ChildNodes['FULL_NAME'].Text + ';';
+  Linha := linha + NodeRequest.ChildNodes['OPERATINGSYSTEM'].ChildNodes['ARCH'].Text + ';';
+
+  RenameFile('tempxml.xml',ArqTxtName+' - '+ NomePC +' - '+ edtPatrimonio.Text+'.xml');
 
 end;
 
