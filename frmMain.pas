@@ -1,3 +1,5 @@
+//Icone <a href="https://www.flaticon.com/br/icones-gratis/inventario" title="inventário ícones">Inventário ícones criados por Freepik - Flaticon</a>
+// Autora Stella Ramalho
 unit frmMain;
 
 interface
@@ -42,6 +44,8 @@ type
     edtLocal: TEdit;
     edtPatrimonio: TEdit;
     btnGerar: TButton;
+    Label1: TLabel;
+    edtPatMon: TEdit;
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -91,7 +95,9 @@ procedure TfrmPrincipal.btnGerarClick(Sender: TObject);
 var
   NodeRequest,
   NodeDrives : IXMLNode;
+  Arq        : TextFile;
   linha,
+  linhaMon,
   NomePC,
   TamHD,
   ArqTxtName : string;
@@ -99,24 +105,39 @@ var
 
 begin
   I.WriteString('DADOS','EMPRESA',edtEmpresa.text);
-  I.WriteString('DADOS','RESPONSAVEL',edtResponsavel.text);
+//  I.WriteString('DADOS','RESPONSAVEL',edtResponsavel.text);
   I.WriteString('DADOS','LOCAL',edtLocal.text);
   I.WriteString('DADOS','UNIDADE',rdgUnidade.Items[rdgUnidade.ItemIndex]);
 
   Linha      := '';
+  LinhaMon   := '';
   ArqTxtName := '';
   ArqTxtName := edtEmpresa.text + ' - ' + edtLocal.Text;
 
-  Linha := edtEmpresa.text +';'+edtResponsavel.Text+';'+edtLocal.Text+';'+
-           rdgUnidade.Items[rdgUnidade.ItemIndex]+';'+edtPatrimonio.Text+';';
   NodeRequest := XmlDocument.ChildNodes['REQUEST'].ChildNodes['CONTENT'];
 
+// Nome_empresa;
+  Linha    := lblData.Caption +';';
+
+//Tipo_Equipamento;
+  Linha := linha + NodeRequest.ChildNodes['HARDWARE'].ChildNodes['CHASSIS_TYPE'].Text + ';';
+
+//Nome_Responsavel;Local;Unidade;Patrimonio;
+  Linha := linha + edtEmpresa.text +';'+edtResponsavel.Text+';'+edtLocal.Text+';'+
+           rdgUnidade.Items[rdgUnidade.ItemIndex]+';'+edtPatrimonio.Text+';';
+
+
+//Fabricante;
   Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SMANUFACTURER'].Text + ';';
+//Modelo;
   Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SMODEL'].Text + ';';
+//Service_Tag;
   Linha := linha + NodeRequest.ChildNodes['BIOS'].ChildNodes['SSN'].Text + ';';
 
+//CPU;
   Linha := linha + NodeRequest.ChildNodes['CPUS'].ChildNodes['NAME'].Text + ';';
 
+//Drive_HD;
   NodeDrives := NodeRequest.ChildNodes['DRIVES']; TamHD := '';
   for IFor := 0 to NodeDrives.ChildNodes.Count -1 do begin
     if (NodeDrives.ChildNodes['DESCRIPTION'].Text = 'Disco Fixo Local')
@@ -129,17 +150,93 @@ begin
     TamHD := FloatToStr(StrToInt(TamHD)/1024);
   end;
   Linha := linha + TamHD + ';';
-
-  Linha := linha + NodeRequest.ChildNodes['HARDWARE'].ChildNodes['CHASSIS_TYPE'].Text + ';';
+//Nome_PC;
   Linha := linha + NodeRequest.ChildNodes['HARDWARE'].ChildNodes['NAME'].Text + ';';
   NomePC :=NodeRequest.ChildNodes['HARDWARE'].ChildNodes['NAME'].Text;
 
+//Memoria;
   Linha := linha + NodeRequest.ChildNodes['MEMORIES'].ChildNodes['CAPACITY'].Text + ';';
 
+//Sistema_Operacional
   Linha := linha + NodeRequest.ChildNodes['OPERATINGSYSTEM'].ChildNodes['FULL_NAME'].Text + ';';
+//Arquitetura
   Linha := linha + NodeRequest.ChildNodes['OPERATINGSYSTEM'].ChildNodes['ARCH'].Text + ';';
 
+//Linha do monitor
+  if edtPatMon.Text <> '' then begin
+  // Nome_empresa;
+    LinhaMon    := lblData.Caption +';';
+
+  //Tipo_Equipamento;
+    LinhaMon := LinhaMon + 'Monitor' + ';';
+
+  //Nome_Responsavel;Local;Unidade;Patrimonio;
+    LinhaMon := LinhaMon + edtEmpresa.text +';'+edtResponsavel.Text+';'+edtLocal.Text+';'+
+             rdgUnidade.Items[rdgUnidade.ItemIndex]+';'+edtPatrimonio.Text+';';
+
+
+{  NodeEvolucao :=  XMLDocument.ChildNodes['composicao'].ChildNodes['evolucao'];
+  PairList := TStringList.Create;
+  mmSaida.Lines.Clear;
+
+  for i := 0 to NodeEvolucao.ChildNodes.Count-1 do begin
+    NodeArquetipo := NodeEvolucao.ChildNodes[i];
+    if NodeArquetipo.ChildNodes['ativo'].Text = 'T' then begin
+
+ }
+
+
+
+    NodeDrives := XmlDocument.ChildNodes['REQUEST'].ChildNodes['CONTENT'];
+    for IFor := 0 to NodeDrives.ChildNodes.Count -1 do begin
+
+      TamHD := NodeDrives.ChildNodes[iFor].NodeName;
+
+
+      if NodeDrives.ChildNodes[iFor].NodeName = 'MONITORS' then begin
+        if NodeDrives.ChildNodes[iFor].ChildNodes['SERIAL'].Text <> '00000000' then begin
+
+        //Fabricante;
+        TamHD := NodeDrives.ChildNodes[iFor].ChildNodes['MANUFACTURER'].Text + ';';
+          LinhaMon := LinhaMon + NodeDrives.ChildNodes[iFor].ChildNodes['MANUFACTURER'].Text + ';';
+        //Modelo;
+          LinhaMon := LinhaMon + NodeDrives.ChildNodes[iFor].ChildNodes['CAPTION'].Text + ';';
+        //Service_Tag;
+          LinhaMon := LinhaMon + NodeDrives.ChildNodes[iFor].ChildNodes['SERIAL'].Text + ';';
+        end;
+      end;
+    end;
+
+
+  //CPU;
+  //Drive_HD;
+  //Nome_PC;
+  //Memoria;
+  //Sistema_Operacional
+  //Arquitetura
+    LinhaMon := LinhaMon + ';;;;;;';
+
+
+  end;
+
   RenameFile('tempxml.xml',ArqTxtName+' - '+ NomePC +' - '+ edtPatrimonio.Text+'.xml');
+
+  ArqTxtName := ArqTxtName+'.csv';
+
+  AssignFile(Arq, ArqTxtName);
+  if FileExists(ArqTxtName) then
+    Append(Arq)
+  else begin
+    Rewrite(Arq);
+    WriteLn(Arq,'Data;Tipo_Equipamento;Nome_empresa;Nome_Responsavel;Local;Unidade;Patrimonio;Fabricante;Modelo;Service_Tag;'+
+                'CPU;Drive_HD;Nome_PC;Memoria;Sistema_Operacional;Arquitetura');
+  end;
+
+  WriteLn(Arq,Linha);
+  if edtPatMon.Text <> '' then WriteLn(Arq,LinhaMon);
+
+  CloseFile(Arq);
+  ShowMessage('Inventário feito!!');
 
 end;
 
@@ -152,21 +249,24 @@ procedure TfrmPrincipal.FormShow(Sender: TObject);
 
 begin
   I:=TIniFile.Create(ExtractFilePath(Application.ExeName)+'Config.ini');
-  edtEmpresa.Text     := I.ReadString('DADOS','EMPRESA','');
-  edtResponsavel.Text := I.ReadString('DADOS','RESPONSAVEL','');
-  edtLocal.Text       := I.ReadString('DADOS','LOCAL','');
-  rdgUnidade.ItemIndex :=
-  rdgUnidade.Items.IndexOf(I.ReadString('DADOS','UNIDADE',''));
-  lblData.Caption := DateToStr(Date);
+  edtResponsavel.Text  := '';
+  edtPatrimonio.Text   := '';
+  edtPatMon.Text       := '';
+  edtEmpresa.Text      := I.ReadString('DADOS','EMPRESA','');
+  edtLocal.Text        := I.ReadString('DADOS','LOCAL','');
+  rdgUnidade.ItemIndex := rdgUnidade.Items.IndexOf(I.ReadString('DADOS','UNIDADE',''));
+  lblData.Caption      := DateToStr(Date);
 
-//  ExecutarEEsperar('glpi-inventory.bat');
+  if not FileExists('tempxml.xml') then
+    ExecutarEEsperar('glpi-inventory.bat');
 
+  SetForegroundWindow(frmPrincipal.Handle);
   XMLDocument.LoadFromFile ('tempxml.xml'); // pegando o conteúdo da variável Caminho.
   trVw.Items.Clear; //limpa o conteúdo que estiver na TreeView
   XMLDocument.Active:= True; // ativa o XMLDocument
   GenereteTree(XMLDocument.DocumentElement, nil); //Monta a TreeView
 
-  edtPatrimonio.SetFocus;
+  edtResponsavel.SetFocus;
 end;
 
 procedure TfrmPrincipal.GenereteTree(XMLNode: IXMLNode; TreeNode: TTreeNode);
